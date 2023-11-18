@@ -13,9 +13,13 @@ app.use(bodyParser.json({extended: true}));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
+import authRoutes from './routes/auth.js';
+
 app.get('/', (req, res) => {
     res.status(200).json({message: "DUMBO"});
 });
+
+app.use('/api/auth', authRoutes );
 
 const PORT = process.env.PORT || 3000;
 
