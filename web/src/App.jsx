@@ -35,10 +35,10 @@ function App() {
       }}
     >
         <Routes>
-          <Route path="/" element={currentUser ? <Navigate to="/home" />: <Login />} />
+          <Route path="/" element={isAuth ? <Navigate to="/home" />: <Login />} />
           <Route
             path="/home"
-            element={currentUser ? <AdminPanel /> : <Navigate to="/" />}
+            element={isAuth ? <AdminPanel /> : <Navigate to="/" />}
           />
         </Routes>
         </CurrentUserContext.Provider>

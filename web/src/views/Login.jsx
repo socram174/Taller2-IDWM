@@ -1,5 +1,5 @@
-import React, { useRef, useState, Fragment } from "react";
-import { useForm } from "react-hook-form";
+import React, { useRef, useState, useContext } from "react";
+import { set, useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,11 @@ const Login = () => {
   } = useForm();
 
   const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    setErrorMessage(null);
+    setLoading(true);
     const { Username, Password } = data;
 
     try {
@@ -41,9 +44,11 @@ const Login = () => {
         navigate("/home");
       } else {
         setErrorMessage(info.message);
+        setLoading(false);
       }
     } catch (error) {
         setErrorMessage("Error en el servidor, por favor intentelo mas tarde");
+        setLoading(false);
     }
   };
   //console.log(errors);
@@ -83,7 +88,7 @@ const Login = () => {
           )}
 
           {errorMessage ? (
-            <div className="flex flex-col justify-center items-center border-2 border-red-500 p-4 rounded-md">
+            <div className="flex flex-col justify-center items-center border-2 border-red-500 p-4 rounded-md w-64">
               <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                 <ExclamationTriangleIcon
                   className="h-6 w-6 text-red-600"
@@ -101,10 +106,16 @@ const Login = () => {
           )}
 
           <button
-            className="border-2 p-2 rounded-md bg-green-400 mt-2 text-white hover:ring-2 hover:ring-green-500"
+            className="border-2 p-2 rounded-md bg-green-400 mt-2 text-white font-bold hover:ring-2 hover:ring-green-500 flex"
             type="submit"
           >
-            Ingresar
+            {loading ? (
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 animate-spin">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+</svg>
+            ):("Ingresar")}
+
           </button>
         </form>
       </div>
