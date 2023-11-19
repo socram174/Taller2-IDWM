@@ -7,15 +7,17 @@ export const adminLogin = async (req, res) => {
     try{
         const { username, password } = req.body;
 
-        if(!username || !password) return res.status(400).json({ success: false, message: "Username and password are required" });
+        console.log(username, password);
+
+        if(!username || !password) return res.status(400).json({ success: false, message: "El usuario y contraseña son requeridos" });
 
         const foundAdmin = await Admin.findOne({ username: username });
 
-        if(!foundAdmin) return res.status(404).json({success: false, message: "Admin not found" });
+        if(!foundAdmin) return res.status(404).json({success: false, message: "El usuario no existe" });
 
         const isPasswordCorrect = await bcrypt.compare(password, foundAdmin.password);
 
-        if(!isPasswordCorrect) return res.status(400).json({ success: false, message: "Invalid credentials" });
+        if(!isPasswordCorrect) return res.status(400).json({ success: false, message: "Credenciales invalidas" });
 
         const token = jwt.sign({ id: foundAdmin._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
