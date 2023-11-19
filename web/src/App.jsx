@@ -1,26 +1,49 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect, createContext } from 'react';
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import Login from "./views/Login.jsx";
+import AdminPanel from "./views/AdminPanel.jsx";
+import './App.css';
+
+export const CurrentUserContext = createContext(null);
 
 function App() {
   const [message, setMessage] = useState("");
+    //localStorage.setItem("token", "Tom");
 
-  const getMessage = async () => {
-    const response = await fetch("http://localhost:3000");
-    const data = await response.json();
-    console.log(data);
-    setMessage(data.message);
-  };
+    const isAuth = localStorage.getItem("token");
 
-  useEffect(() => {
-    getMessage();
-  },[]);
+    const [currentUser, setCurrentUser] = useState(isAuth);
+
+  // const getMessage = async () => {
+  //   const response = await fetch("http://localhost:3000");
+  //   const data = await response.json();
+  //   console.log(data);
+  //   setMessage(data.message);
+  // };
+
+  // useEffect(() => {
+  //   getMessage();
+  // },[]);
 
   return (
-    <div className="flex justify-center items-center h-full text-green-500">
-      <h1 className="text-3xl font-bold">
-        {message}
-      </h1>
-    </div>
+    <>
+      <BrowserRouter>
+      <CurrentUserContext.Provider
+      value={{
+        currentUser,
+        setCurrentUser
+      }}
+    >
+        <Routes>
+          <Route path="/" element={currentUser ? <Navigate to="/home" />: <Login />} />
+          <Route
+            path="/home"
+            element={currentUser ? <AdminPanel /> : <Navigate to="/" />}
+          />
+        </Routes>
+        </CurrentUserContext.Provider>
+      </BrowserRouter>
+    </>
   )
 }
 
