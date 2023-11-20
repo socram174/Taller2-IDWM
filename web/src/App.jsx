@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Login from "./views/Login.jsx";
 import AdminPanel from "./views/AdminPanel.jsx";
 import './App.css';
+import Navbar from './components/Navbar.jsx';
 
 export const CurrentUserContext = createContext(null);
 
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <>
+    <Navbar />
       <BrowserRouter>
       <CurrentUserContext.Provider
       value={{

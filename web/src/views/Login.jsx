@@ -54,7 +54,9 @@ const Login = () => {
   //console.log(errors);
 
   return (
-    <div className="flex flex-col justify-center items-center h-full">
+    <>
+   
+      <div className="flex flex-col pt-24 items-center h-full">
       <div className="flex flex-col justify-center items-center border-2 p-2 rounded-lg shadow-green-600 shadow-lg">
         <h1 className="font-bold text-4xl text-green-500">Iniciar sesión</h1>
         <form
@@ -120,6 +122,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
