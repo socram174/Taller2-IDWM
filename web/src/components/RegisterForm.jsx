@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function RegisterForm({ open, setOpen}) {
-
-    const [loading, setLoading] = useState(false);
-
+export default function RegisterForm({ open, setOpen }) {
+  const [loading, setLoading] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("rut");
 
   const {
     register,
@@ -16,29 +15,91 @@ export default function RegisterForm({ open, setOpen}) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col p-10 gap-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col p-10 gap-2"
+      >
         <input
           className="rounded-md focus:border-green-500 focus:ring-green-500 focus:ring-inset focus:ring"
           type="text"
           placeholder="Nombres"
           {...register("Nombres", { required: true })}
         />
+
+        {errors["Nombres"] ? (
+          <span className="text-red-500">El nombres es requerido</span>
+        ) : (
+          <br />
+        )}
+
         <input
           className="rounded-md focus:border-green-500 focus:ring-green-500 focus:ring-inset focus:ring"
           type="text"
           placeholder="Apellidos"
           {...register("Apellidos", { required: true })}
         />
-        <select {...register("RUT o DNI", { required: true })}>
+                {errors["Apellidos"] ? (
+          <span className="text-red-500">El apellido es requerido</span>
+        ) : (
+          <br />
+        )}
+        <select
+          id="rutOrDni"
+          {...register("RUT o DNI", { required: true })}
+          onChange={() => {
+            //Get and print the selected value in console
+            var selectedValue = document.getElementById("rutOrDni").value;
+            console.log(selectedValue);
+            setSelectedValue(selectedValue);
+          }}
+        >
           <option value="rut">RUT</option>
           <option value="dni">DNI</option>
         </select>
+
+        {selectedValue === "rut" ? (<>
+          <input
+            type="text"
+            placeholder="RUT"
+            {...register("RUT", {
+              required: true,
+              pattern: /^\d{7,8}-[k|K|\d]$/i,
+            })}
+          />
+                  {errors["RUT"] ? (
+          <span className="text-red-500">El rut es requerido con formato: XXXXXXXX-X</span>
+        ) : (
+          <br />
+        )}
+          </>
+          
+        ) : (
+            <>
+          <input
+            className="rounded-md focus:border-green-500 focus:ring-green-500 focus:ring-inset focus:ring"
+            type="text"
+            placeholder="DNI"
+            {...register("DNI", { required: true })}
+          />
+                  {errors["DNI"] ? (
+          <span className="text-red-500">El DNI es requerido</span>
+        ) : (
+          <br />
+        )}
+          </>
+        )}
+
         <input
           className="rounded-md focus:border-green-500 focus:ring-green-500 focus:ring-inset focus:ring"
           type="text"
           placeholder="Email"
-          {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
+          {...register("Email", { required: true, pattern: /^(?!\.)[a-zA-Z0-9._%+-]+@(?!-)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?<!-)$/ })}
         />
+                {errors["Email"] ? (
+          <span className="text-red-500">El email es requerido y debe tener formato valido</span>
+        ) : (
+          <br />
+        )}
         <input
           className="rounded-md focus:border-green-500 focus:ring-green-500 focus:ring-inset focus:ring"
           type="number"
@@ -70,9 +131,14 @@ export default function RegisterForm({ open, setOpen}) {
           )}
         </button>
 
-        <button onClick={()=>{
+        <button
+          onClick={() => {
             setOpen(false);
-        }} className="p-2 border rounded-md">volver</button>
+          }}
+          className="p-2 border rounded-md"
+        >
+          volver
+        </button>
       </form>
     </div>
   );
