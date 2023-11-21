@@ -1,11 +1,15 @@
+import React, { useState } from "react";
+import RegisterModal from "../components/RegisterModal";
+
 const AdminPanel = () => {
+    const [open, setOpen] = useState(false);
   return (
     <>
       <div className="pt-24">
 
         <div class="relative overflow-x-auto shadow-md rounded-lg flex md:justify-center flex-col md:items-center min-w-[770px]">
         <div className="flex justify-between w-full md:w-[80%] max-w-[auto] p-4 flex-col md:flex-row gap-4">
-          <button className="border-2 border-blue-700 bg-blue-500 p-2 rounded-md text-white max-w-max">
+          <button onClick={()=>{setOpen(true)}}  className="border-2 border-blue-700 bg-blue-500 p-2 rounded-md text-white max-w-max">
             Nuevo usuario
           </button>
           <input type="text" placeholder="Buscar usuario..." className="max-w-[240px]" />
@@ -99,6 +103,7 @@ const AdminPanel = () => {
           </table>
         </div>
       </div>
+        <RegisterModal open={open} setOpen={setOpen} />
     </>
   );
 };
