@@ -5,12 +5,51 @@ export default function RegisterForm({ open, setOpen }) {
   const [loading, setLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("rut");
 
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    setLoading(true);
+    console.log(data);
+    const { Nombres, Apellidos, RUT, DNI, Email, Puntos } = data;
+
+    const user = {
+        name: Nombres,
+        lastName: Apellidos,
+        email: Email,
+        points: Puntos
+    }
+    if(selectedValue === "rut"){
+        user.rutOrDni = RUT;
+    }else {
+        user.rutOrDni = DNI;
+    }
+
+
+    const res = await fetch("http://localhost:3000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+
+    const info = await res.json();
+
+    if (info.success) {
+      console.log("Usuario creado correctamente");
+
+      setOpen(false);
+      setLoading(false);
+    } else {
+      console.log(info.message);
+        setLoading(false);
+    }
+
+  };
   console.log(errors);
 
   return (
@@ -92,7 +131,7 @@ export default function RegisterForm({ open, setOpen }) {
         <input
           className="rounded-md focus:border-green-500 focus:ring-green-500 focus:ring-inset focus:ring"
           type="text"
-          placeholder="Email"
+          placeholder="Email: m.silva@alumnos.ucn.cl"
           {...register("Email", { required: true, pattern: /^(?!\.)[a-zA-Z0-9._%+-]+@(?!-)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?<!-)$/ })}
         />
                 {errors["Email"] ? (
