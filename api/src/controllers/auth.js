@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Admin } from '../models/Admin.js';
+import { User } from '../models/User.js';
 
 export const adminLogin = async (req, res) => {
 
@@ -31,4 +32,45 @@ export const adminLogin = async (req, res) => {
         res.status(500).json({success: false,  message: "Internal Server Error" });
 
     }
+};
+
+export const userRegister = async (req, res) => {
+
+    try{
+        const {
+            name,
+            lastName,
+            rutOrDni,
+            email,
+            points
+
+        } = req.body;
+
+        const verifyRutOrDni = await User.findOne({ rutOrDni: rutOrDni });
+        const verifyEmail = await User.findOne({ email: email });
+
+        if(verifyRutOrDni) return res.status(400).json({ success: false, message: "El rut o dni ya existe" });
+        if(verifyEmail) return res.status(400).json({ success: false, message: "El email ya existe" });
+
+
+        const newUser = new User({
+            name,
+            lastName,
+            rutOrDni,
+            email,
+            points
+        });
+
+
+        const user = await newUser.save();
+
+        console.log(user);
+
+        res.status(201).json({ success: true, user });
+    }
+    catch(error){
+        res.status(500).json({ success: false, message: error.message });
+    }
+
+
 };
