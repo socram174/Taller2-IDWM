@@ -19,7 +19,7 @@ const Navbar = ({ isAuth }) => {
     return (
       <nav className="text-center bg-green-500 p-2  fixed w-full flex justify-between items-center">
         <h1 className="font-bold text-white text-4xl">DUMBO</h1>
-        <button onClick={logout} className="border-2 p-2 rounded-md bg-red-400 text-white font-bold hover:ring-2 hover:ring-green-500 hidden md:block">
+        <button onClick={logout} className="border-2 p-2 rounded-md bg-red-400 text-white font-bold hover:ring-2 hover:ring-green-500 hidden sm:block">
             Cerrar sesión
         </button>
       </nav>
