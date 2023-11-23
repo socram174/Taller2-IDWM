@@ -6,8 +6,12 @@ const AdminPanel = () => {
   const [open, setOpen] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [selectedId, setSelectedId] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+
 
   const getUsers = async () => {
     const res = await fetch("http://localhost:3000/api/users");
@@ -19,6 +23,15 @@ const AdminPanel = () => {
   useEffect(() => {
     getUsers();
   }, []);
+
+  useEffect(() => {
+    // Filter users based on searchValue
+    const filtered = users.filter(
+      (user) =>
+        user.rutOrDni.includes(searchValue) || user.email.includes(searchValue)
+    );
+    setFilteredUsers(filtered);
+  }, [searchValue, users]);
 
   return (
     <>
@@ -37,6 +50,8 @@ const AdminPanel = () => {
               type="text"
               placeholder="Buscar usuario..."
               className="max-w-[240px]"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
           <div className="overflow-x-auto w-full flex md:justify-center p-4">
@@ -64,7 +79,7 @@ const AdminPanel = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => {
+                {filteredUsers.map((user) => {
                   return (
                     <tr key={user._id} class="">
                     <th
