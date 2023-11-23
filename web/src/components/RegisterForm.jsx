@@ -146,6 +146,11 @@ export default function RegisterForm({ open, setOpen, getUsers }) {
           placeholder="Puntos"
           {...register("Puntos", { required: true, max: 50000, min: 0 })}
         />
+                        {errors["Puntos"] ? (
+          <span className="text-red-500">Puntos requeridos y un maximo de 50000 puntos</span>
+        ) : (
+          <br />
+        )}
 
         <button
           className="border-2 p-2 rounded-md bg-green-400 mt-2 text-white font-bold hover:ring-2 hover:ring-green-500  text-center"
