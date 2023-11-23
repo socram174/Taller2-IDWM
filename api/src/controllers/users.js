@@ -25,3 +25,28 @@ export const deleteUser = async (req, res) => {
 
     }
 };
+
+export const editUser = async (req, res) => {
+    try{
+        const { rutOrDni } = req.params;
+        console.log(rutOrDni);
+
+        const { name, lastName, email, points} = req.body;
+
+    
+        const user = await User.findOne({ rutOrDni: rutOrDni });
+        if(!user) return res.status(404).json({ success: false, message: "User not found" });
+    
+        if(name) user.name = name;
+        if(lastName) user.lastName = lastName;
+        if(email) user.email = email;
+        if(points) user.points = points;
+    
+        await user.save();
+    
+        res.status(200).json({ success: true, message: "User updated successfully"});
+    }catch(error){
+        console.log(error);
+        res.status(500).json({success: false,  message: "Internal Server Error" });
+    }
+};
