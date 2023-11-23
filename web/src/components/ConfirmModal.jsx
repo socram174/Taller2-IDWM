@@ -14,6 +14,7 @@ const ConfirmModal = ({open, setOpen, id, getUsers}) => {
     });
     const data = await res.json();
     console.log(data);
+    setLoading(false);
     getUsers();
   };
 
