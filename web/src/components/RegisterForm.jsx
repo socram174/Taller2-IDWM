@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function RegisterForm({ open, setOpen }) {
+export default function RegisterForm({ open, setOpen, getUsers }) {
   const [loading, setLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("rut");
 
@@ -11,6 +11,7 @@ export default function RegisterForm({ open, setOpen }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  
   const onSubmit = async (data) => {
     setLoading(true);
     console.log(data);
@@ -41,7 +42,7 @@ export default function RegisterForm({ open, setOpen }) {
 
     if (info.success) {
       console.log("Usuario creado correctamente");
-
+      getUsers();
       setOpen(false);
       setLoading(false);
     } else {

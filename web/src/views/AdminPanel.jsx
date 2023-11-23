@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import RegisterModal from "../components/RegisterModal";
+import ConfirmModal from "../components/ConfirmModal";
 
 const AdminPanel = () => {
   const [open, setOpen] = useState(false);
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
 
   const [users, setUsers] = useState([]);
 
@@ -76,6 +79,20 @@ const AdminPanel = () => {
                     <td class="px-6 py-4">
                       {user.points}
                     </td>
+                    <td class="px-6 py-4 flex">
+                      <button className="bg-green-500 text-white rounded-md p-2 border-2">
+                        Editar
+                      </button>
+                      <button id={user._id} onClick={(e) => {
+                        console.log(e.currentTarget.id);
+                        setSelectedId(e.currentTarget.id);
+                        console.log(selectedId);
+                        //deleteUser(user._id);
+                        setOpenConfirmModal(true);
+                      }} className="bg-red-500 text-white rounded-md p-2 border-2">
+                        Eliminar
+                      </button>
+                    </td>
                   </tr>
                   )
                 })}
@@ -84,7 +101,8 @@ const AdminPanel = () => {
           </div>
         </div>
       </div>
-      <RegisterModal open={open} setOpen={setOpen} />
+      <RegisterModal open={open} setOpen={setOpen} getUsers={getUsers}  />
+      <ConfirmModal open={openConfirmModal} setOpen={setOpenConfirmModal} id={selectedId} getUsers={getUsers}  />
     </>
   );
 };
