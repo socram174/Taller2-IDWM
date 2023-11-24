@@ -9,8 +9,6 @@ export const adminLogin = async (req, res) => {
     try{
         const { username, password } = req.body;
 
-        console.log(username, password);
-
         // Verificar que el usuario y contraseña no esten vacios
         if(!username || !password) return res.status(400).json({ success: false, message: "El usuario y contraseña son requeridos" });
 
@@ -71,8 +69,6 @@ export const userRegister = async (req, res) => {
 
         // Se guarda el usuario en la base de datos
         const user = await newUser.save();
-
-        console.log(user);
 
         res.status(201).json({ success: true, user });
     }

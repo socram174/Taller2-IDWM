@@ -37,12 +37,9 @@ export const editUser = async (req, res) => {
     try{
         // Se obtiene el rut o dni del usuario
         const { rutOrDni } = req.params;
-        console.log(rutOrDni);
 
         // Se obtienen los datos del usuario que vienen en el body
         const { name, lastName, email, points} = req.body;
-
-        console.log(name, lastName, email, points);
 
         // Se obtiene el usuario por su rut o dni
         const user = await User.findOne({ rutOrDni: rutOrDni });
