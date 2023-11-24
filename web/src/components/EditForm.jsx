@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 
 export default function EditForm({ open, setOpen, getUsers, selectedUser, setSelectedUser }) {
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
 
   const {
     register,
@@ -14,6 +15,7 @@ export default function EditForm({ open, setOpen, getUsers, selectedUser, setSel
   
 
   const onSubmit = async (data) => {
+    setMessage(null);
     setLoading(true);
     console.log(data);
     const { Nombres, Apellidos, Email, Puntos } = data;
@@ -30,7 +32,7 @@ export default function EditForm({ open, setOpen, getUsers, selectedUser, setSel
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(user),
     });
@@ -43,6 +45,7 @@ export default function EditForm({ open, setOpen, getUsers, selectedUser, setSel
       setOpen(false);
     } else {
       console.error(info.message);
+      setMessage(info.message);
     }
 
     setLoading(false);
@@ -177,6 +180,7 @@ export default function EditForm({ open, setOpen, getUsers, selectedUser, setSel
         >
           Volver
         </button>
+        {message && <p className="text-red-500">{message}</p>}
       </form>
     </div>
   );
