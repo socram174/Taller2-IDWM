@@ -20,7 +20,7 @@ export const adminLogin = async (req, res) => {
 
         if(!isPasswordCorrect) return res.status(400).json({ success: false, message: "Credenciales invalidas" });
 
-        const token = jwt.sign({ id: foundAdmin._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ id: foundAdmin._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
         const admin = {
             username: foundAdmin.username,
