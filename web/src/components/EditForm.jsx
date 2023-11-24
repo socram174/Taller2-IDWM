@@ -14,6 +14,7 @@ export default function EditForm({ open, setOpen, getUsers, selectedUser, setSel
 
   
 
+  // Función para editar un usuario. Es necesario enviar el token de autenticación en el header de la petición
   const onSubmit = async (data) => {
     setMessage(null);
     setLoading(true);

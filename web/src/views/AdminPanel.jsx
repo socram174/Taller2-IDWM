@@ -5,20 +5,28 @@ import EditModal from "../components/EditModal";
 import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
+  // Variable para mostrar el modal de registro de usuarios
   const [open, setOpen] = useState(false);
+  // Variable para mostrar el modal de confirmación de eliminación de usuarios
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  // Variable para mostrar el modal de edición de usuarios
   const [openEditModal, setOpenEditModal] = useState(false);
+  // Variable para guardar el id del usuario seleccionado
   const [selectedId, setSelectedId] = useState("");
+  // Variable para guardar el valor del input de búsqueda
   const [searchValue, setSearchValue] = useState("");
+  // Variable para guardar el usuario seleccionado al editar
   const [selectedUser, setSelectedUser] = useState({});
 
+  // Variable para guardar la lista de usuarios obtenida desde el servidor
   const [users, setUsers] = useState([]);
+  // Variable para guardar la lista de usuarios filtrados
   const [filteredUsers, setFilteredUsers] = useState([]);
 
   const navigate = useNavigate();
 
   
-
+  // Función para obtener la lista de usuarios desde el servidor y guardarla en la variable users. Es necesario enviar el token de autenticación en el header de la petición
   const getUsers = async () => {
     const token = localStorage.getItem("token");
     const res = await fetch("http://localhost:3000/api/users",{
@@ -32,12 +40,13 @@ const AdminPanel = () => {
     setUsers(data.users);
   };
 
+  // Se ejecuta la función getUsers al cargar la vista
   useEffect(() => {
     getUsers();
   }, []);
 
   useEffect(() => {
-    // Filter users based on searchValue
+    // Se filtra la lista de usuarios según el valor del input de búsqueda
     const filtered = users.filter(
       (user) =>
         user.rutOrDni.includes(searchValue) || user.email.includes(searchValue)
@@ -49,6 +58,7 @@ const AdminPanel = () => {
     <>
       <div className="pt-24">
         <div className="relative shadow-md rounded-lg flex md:justify-center flex-col md:items-center">
+          {/* Recuadro para el boton de registro de usuarios y el input de busqueda */} 
           <div className="flex justify-between w-full md:w-[80%] max-w-[auto] p-4 flex-col md:flex-row gap-4">
             <button
               onClick={() => {
@@ -67,6 +77,7 @@ const AdminPanel = () => {
             />
           </div>
           <div className="overflow-x-auto w-full flex md:justify-center p-4">
+            {/* Tabla de usuarios */} 
             <table class="text-sm text-left rtl:text-right w-full md:w-[80%] max-w-[auto]">
               <thead class="text-xs uppercase bg-green-200">
                 <tr>
@@ -133,8 +144,11 @@ const AdminPanel = () => {
           </div>
         </div>
       </div>
+      {/* Modal para el registro de usuarios */}
       <RegisterModal open={open} setOpen={setOpen} getUsers={getUsers}  />
+      {/* Modal para confirmar la eliminacion de un usuario */} 
       <ConfirmModal open={openConfirmModal} setOpen={setOpenConfirmModal} id={selectedId} getUsers={getUsers}  />
+      {/* Modal para editar un usuario */} 
       <EditModal open={openEditModal} setOpen={setOpenEditModal} getUsers={getUsers} selectedUser={selectedUser} setSelectedUser={setSelectedUser}
       />
     </>

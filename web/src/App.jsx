@@ -9,22 +9,10 @@ export const CurrentUserContext = createContext(null);
 
 function App() {
   const [message, setMessage] = useState("");
-  //localStorage.setItem("token", "Tom");
 
   const isAuth = localStorage.getItem("token");
 
   const [currentUser, setCurrentUser] = useState(isAuth);
-
-  // const getMessage = async () => {
-  //   const response = await fetch("http://localhost:3000");
-  //   const data = await response.json();
-  //   console.log(data);
-  //   setMessage(data.message);
-  // };
-
-  // useEffect(() => {
-  //   getMessage();
-  // },[]);
 
   return (
     <>
@@ -38,10 +26,12 @@ function App() {
         <BrowserRouter>
         <Navbar isAuth={isAuth} />
           <Routes>
+            {/* Ruta base en la que se encuentra el Login */} 
             <Route
               path="/"
               element={isAuth ? <Navigate to="/home" /> : <Login />}
             />
+            {/* Ruta home en la que se encuentra la vista para la gestión de usuarios. Se necesita el token otorgado al inicio de sesión para acceder, de lo contrario se redirige al login*/} 
             <Route
               path="/home"
               element={isAuth ? <AdminPanel /> : <Navigate to="/" />}

@@ -1,7 +1,6 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 const ConfirmModal = ({open, setOpen, id, getUsers}) => {
   const [loading, setLoading] = useState(false);
@@ -9,6 +8,7 @@ const ConfirmModal = ({open, setOpen, id, getUsers}) => {
   const cancelButtonRef = useRef(null);
   
 
+  // Función para eliminar un usuario. Es necesario enviar el token de autenticación en el header de la petición
   const deleteUser = async (id) => {
     const token = localStorage.getItem("token");
     const res = await fetch(`http://localhost:3000/api/users/${id}`, {
@@ -26,11 +26,12 @@ const ConfirmModal = ({open, setOpen, id, getUsers}) => {
 
   return (
     <Transition.Root show={open} as={Fragment}>
+      {/* Toda esta logica pertenece al modal de headless ui de tailwind */} 
       <Dialog
         as="div"
         className="relative z-10"
         initialFocus={cancelButtonRef}
-        onClose={()=>{
+        onClose={()=>{ // Esta función se ejecuta al hacer click fuera del modal, por lo que la desactive
             console.log("outside close modal clicked");
         }}
       >
@@ -79,7 +80,7 @@ const ConfirmModal = ({open, setOpen, id, getUsers}) => {
                   </div>
                 </div>
                 <div className="flex gap-2 p-4">
-                <button onClick={()=>{
+                <button onClick={()=>{ // Esta función se ejecuta al hacer click en el boton de eliminar, y llama a la función deleteUser
                     setLoading(true);
                     deleteUser(id);
                     getUsers();

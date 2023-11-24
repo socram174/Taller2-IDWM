@@ -12,6 +12,7 @@ export default function RegisterForm({ open, setOpen, getUsers }) {
     formState: { errors },
   } = useForm();
   
+  // Función para crear un usuario. Es necesario enviar el token de autenticación en el header de la petición
   const onSubmit = async (data) => {
     setLoading(true);
     console.log(data);
@@ -61,13 +62,14 @@ export default function RegisterForm({ open, setOpen, getUsers }) {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col p-10 gap-2"
       >
+        {/* La misma logica mencionada anteriormente */} 
         <input
           className="rounded-md focus:border-green-500 focus:ring-green-500 focus:ring-inset focus:ring"
           type="text"
           placeholder="Nombres"
           {...register("Nombres", { required: true })}
         />
-
+        {/* Lo mismo para los errores */} 
         {errors["Nombres"] ? (
           <span className="text-red-500">El nombres es requerido</span>
         ) : (

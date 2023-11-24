@@ -5,7 +5,6 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import  EditForm  from "./EditForm";
 
 const EditModal = ({open, setOpen, getUsers, selectedUser, setSelectedUser}) => {
-  //const [open, setOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
 
