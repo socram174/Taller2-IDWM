@@ -9,11 +9,14 @@ export const seedAdmins = async () => {
   try {
     console.log("Seeding admins...");
 
+    // Password del administrador
     const password = "Jaqamain3pals";
 
+    // Encriptar el password
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
+    // Crear el administrador con el password encriptado
     const admin = {
       username: "Ochietto",
       password: passwordHash,
