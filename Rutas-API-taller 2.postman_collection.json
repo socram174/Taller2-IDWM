@@ -11,6 +11,28 @@
 			"item": [
 				{
 					"name": "Admin login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Store the token value in a collection variable called \"token\"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -58,7 +80,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NThmODFlZDg5YmRkMjJjNDJjZGY1MCIsImlhdCI6MTcwMDgwNDc3NiwiZXhwIjoxNzAwODkxMTc2fQ.Xn87iPEOBlZWXfYHCBLz0CZzsRF2IssOEhkbJ2UYVL4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -111,7 +133,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NThmODFlZDg5YmRkMjJjNDJjZGY1MCIsImlhdCI6MTcwMDgwNDc3NiwiZXhwIjoxNzAwODkxMTc2fQ.Xn87iPEOBlZWXfYHCBLz0CZzsRF2IssOEhkbJ2UYVL4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -141,7 +163,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NThmODFlZDg5YmRkMjJjNDJjZGY1MCIsImlhdCI6MTcwMDgwNDc3NiwiZXhwIjoxNzAwODkxMTc2fQ.Xn87iPEOBlZWXfYHCBLz0CZzsRF2IssOEhkbJ2UYVL4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -193,8 +215,71 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
 		}
 	]
 }
