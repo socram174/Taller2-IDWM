@@ -25,10 +25,12 @@ export default function EditForm({ open, setOpen, getUsers, selectedUser, setSel
       points: Puntos,
     };
 
+    const token = localStorage.getItem("token");
     const res = await fetch(`http://localhost:3000/api/users/edit/${selectedUser.rutOrDni}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(user),
     });

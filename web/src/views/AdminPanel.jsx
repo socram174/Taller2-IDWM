@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import RegisterModal from "../components/RegisterModal";
 import ConfirmModal from "../components/ConfirmModal";
 import EditModal from "../components/EditModal";
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
   const [open, setOpen] = useState(false);
@@ -14,10 +15,18 @@ const AdminPanel = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
 
+  const navigate = useNavigate();
 
+  
 
   const getUsers = async () => {
-    const res = await fetch("http://localhost:3000/api/users");
+    const token = localStorage.getItem("token");
+    const res = await fetch("http://localhost:3000/api/users",{
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    });
     const data = await res.json();
     console.log(data.users);
     setUsers(data.users);
