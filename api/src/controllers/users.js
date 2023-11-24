@@ -53,7 +53,7 @@ export const editUser = async (req, res) => {
             if(name) user.name = name;
             if(lastName) user.lastName = lastName;
             if(points) user.points = points;
-            user.email = email;
+            if(email) user.email = email;
 
             await user.save();
 
