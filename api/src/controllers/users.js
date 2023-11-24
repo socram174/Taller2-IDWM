@@ -35,20 +35,31 @@ export const editUser = async (req, res) => {
 
         console.log(name, lastName, email, points);
 
-    
-        const checkUser = await User.findOne({ email: email });
-        if(checkUser) return res.status(404).json({ success: false, message: "El email ya esta en uso" });
-
         const user = await User.findOne({ rutOrDni: rutOrDni });
-    
-        if(name) user.name = name;
-        if(lastName) user.lastName = lastName;
-        if(email) user.email = email;
-        if(points) user.points = points;
-    
-        await user.save();
-    
-        res.status(200).json({ success: true, message: "User updated successfully"});
+
+
+        if(user.email === email){
+            if(name) user.name = name;
+            if(lastName) user.lastName = lastName;
+            if(points) user.points = points;
+            await user.save();
+
+            res.status(200).json({ success: true, message: "User updated successfully"});
+
+        }else {
+            const checkUser = await User.findOne({ email: email });
+            if(checkUser) return res.status(404).json({ success: false, message: "El email ya esta en uso" });
+
+            if(name) user.name = name;
+            if(lastName) user.lastName = lastName;
+            if(points) user.points = points;
+            user.email = email;
+
+            await user.save();
+
+            res.status(200).json({ success: true, message: "User updated successfully"});
+
+        }
     }catch(error){
         console.log(error);
         res.status(500).json({success: false,  message: "Internal Server Error" });

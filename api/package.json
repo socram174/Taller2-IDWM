@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "npx nodemon src/app.js"
+    "dev": "npx nodemon src/app.js",
+    "seed:admins": "node src/seeders/admins.js",
+    "seed:users": "node src/seeders/users.js"
   },
   "keywords": [],
   "author": "Marcos Silva",
