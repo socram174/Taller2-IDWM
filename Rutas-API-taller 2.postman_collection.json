@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "a23d272e-948e-46ba-8b5c-f476f451cfaf",
+		"name": "Rutas-API-taller 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16072155"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Admin login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Ochietto",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Jaqamain3pals",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Edit user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NThmODFlZDg5YmRkMjJjNDJjZGY1MCIsImlhdCI6MTcwMDgwNDc3NiwiZXhwIjoxNzAwODkxMTc2fQ.Xn87iPEOBlZWXfYHCBLz0CZzsRF2IssOEhkbJ2UYVL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lastName",
+									"value": "Robledo Jimenez",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Matias Alejandro",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/edit/:rutOrDni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"edit",
+								":rutOrDni"
+							],
+							"variable": [
+								{
+									"key": "rutOrDni",
+									"value": "19734563-k"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NThmODFlZDg5YmRkMjJjNDJjZGY1MCIsImlhdCI6MTcwMDgwNDc3NiwiZXhwIjoxNzAwODkxMTc2fQ.Xn87iPEOBlZWXfYHCBLz0CZzsRF2IssOEhkbJ2UYVL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NThmODFlZDg5YmRkMjJjNDJjZGY1MCIsImlhdCI6MTcwMDgwNDc3NiwiZXhwIjoxNzAwODkxMTc2fQ.Xn87iPEOBlZWXfYHCBLz0CZzsRF2IssOEhkbJ2UYVL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Marcos",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Silva",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "marcos@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "rutOrDni",
+									"value": "19735683-k",
+									"type": "text"
+								},
+								{
+									"key": "points",
+									"value": "777",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
