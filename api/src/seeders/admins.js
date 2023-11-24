@@ -4,6 +4,7 @@ import { Admin } from "../models/Admin.js";
 import dotenv from "dotenv";
 dotenv.config();
 
+// Funcion para crear un administrador en la base de datos
 export const seedAdmins = async () => {
   try {
     console.log("Seeding admins...");

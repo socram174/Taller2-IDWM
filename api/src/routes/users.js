@@ -4,7 +4,7 @@ import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-/* ADMIN */
+/* Rutas protegidas por un bearer token, a las que puede acceder el administrador */
 router.get("/", verifyToken, getUsers);
 router.delete("/:id",verifyToken, deleteUser );
 router.post("/edit/:rutOrDni",verifyToken, editUser );

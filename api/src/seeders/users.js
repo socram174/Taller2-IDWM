@@ -3,6 +3,7 @@ import { User } from "../models/User.js";
 import dotenv from "dotenv";
 dotenv.config();
 
+// Funcion para crear usuarios en la base de datos
 export const seedUsers = async () => {
   try {
     console.log("Seeding users...");

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Modelo del administrador con su username unico
 const AdminSchema = new mongoose.Schema({
     username: {
         type: String,

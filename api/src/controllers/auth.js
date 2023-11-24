@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Admin } from '../models/Admin.js';
 import { User } from '../models/User.js';
 
+// Controlador para el login de administradores
 export const adminLogin = async (req, res) => {
 
     try{
@@ -10,16 +11,20 @@ export const adminLogin = async (req, res) => {
 
         console.log(username, password);
 
+        // Verificar que el usuario y contraseña no esten vacios
         if(!username || !password) return res.status(400).json({ success: false, message: "El usuario y contraseña son requeridos" });
 
         const foundAdmin = await Admin.findOne({ username: username });
 
+        // Verificar que el usuario exista
         if(!foundAdmin) return res.status(404).json({success: false, message: "El usuario no existe" });
 
         const isPasswordCorrect = await bcrypt.compare(password, foundAdmin.password);
 
+        // Verificar que la contraseña sea correcta
         if(!isPasswordCorrect) return res.status(400).json({ success: false, message: "Credenciales invalidas" });
 
+        // Crear el token con el id del administrador
         const token = jwt.sign({ id: foundAdmin._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
         const admin = {
@@ -34,6 +39,7 @@ export const adminLogin = async (req, res) => {
     }
 };
 
+// Controlador para el registro de usuarios
 export const userRegister = async (req, res) => {
 
     try{
@@ -46,9 +52,11 @@ export const userRegister = async (req, res) => {
 
         } = req.body;
 
+        // Se verifica que no exita ni el rut o dni ni el email
         const verifyRutOrDni = await User.findOne({ rutOrDni: rutOrDni });
         const verifyEmail = await User.findOne({ email: email });
 
+        // Si existe alguno de los dos se retorna un error
         if(verifyRutOrDni) return res.status(400).json({ success: false, message: "El rut o dni ya existe" });
         if(verifyEmail) return res.status(400).json({ success: false, message: "El email ya existe" });
 
@@ -61,7 +69,7 @@ export const userRegister = async (req, res) => {
             points
         });
 
-
+        // Se guarda el usuario en la base de datos
         const user = await newUser.save();
 
         console.log(user);

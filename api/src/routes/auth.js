@@ -1,11 +1,13 @@
 import express from "express";
 import { adminLogin, userRegister } from "../controllers/auth.js"
+import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-/* ADMIN */
+/* Ruta para el inicio de sesión del administrador*/
 router.post("/login", adminLogin);
 
-router.post("/register", userRegister);
+/* Ruta para el registro de usuarios, protegida por el bearer token*/
+router.post("/register",verifyToken, userRegister);
 
 export default router;

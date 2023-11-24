@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Modelo del usuario con rut e email unicos
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
