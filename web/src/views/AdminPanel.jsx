@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import RegisterModal from "../components/RegisterModal";
 import ConfirmModal from "../components/ConfirmModal";
+import EditModal from "../components/EditModal";
 
 const AdminPanel = () => {
   const [open, setOpen] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [selectedUser, setSelectedUser] = useState({});
 
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -95,7 +98,12 @@ const AdminPanel = () => {
                       {user.points}
                     </td>
                     <td class="px-6 py-4 flex">
-                      <button className="bg-green-500 text-white rounded-md p-2 border-2">
+                      <button id={user._id} className="bg-green-500 text-white rounded-md p-2 border-2" onClick={(e) => {
+                        setSelectedId(e.currentTarget.id);
+                        setSelectedUser(user);
+                        setOpenEditModal(true);
+                        
+                      }}>
                         Editar
                       </button>
                       <button id={user._id} onClick={(e) => {
@@ -118,6 +126,8 @@ const AdminPanel = () => {
       </div>
       <RegisterModal open={open} setOpen={setOpen} getUsers={getUsers}  />
       <ConfirmModal open={openConfirmModal} setOpen={setOpenConfirmModal} id={selectedId} getUsers={getUsers}  />
+      <EditModal open={openEditModal} setOpen={setOpenEditModal} getUsers={getUsers} selectedUser={selectedUser} setSelectedUser={setSelectedUser}
+      />
     </>
   );
 };
