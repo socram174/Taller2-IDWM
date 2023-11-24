@@ -33,9 +33,13 @@ export const editUser = async (req, res) => {
 
         const { name, lastName, email, points} = req.body;
 
+        console.log(name, lastName, email, points);
+
     
+        const checkUser = await User.findOne({ email: email });
+        if(checkUser) return res.status(404).json({ success: false, message: "El email ya esta en uso" });
+
         const user = await User.findOne({ rutOrDni: rutOrDni });
-        if(!user) return res.status(404).json({ success: false, message: "User not found" });
     
         if(name) user.name = name;
         if(lastName) user.lastName = lastName;
