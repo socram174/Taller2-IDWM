@@ -4,23 +4,87 @@
 Para iniciar el backend y el frontend se necesita lo siguiente:
 
 
-## Instalaciones obligatorias
 
-#### - [Git](https://git-scm.com/download/win)
-#### - [NodeJS](https://nodejs.org/en/)
-Pude ser tanto la versión LTS como la actual (current).
-#### - [VS Code](https://code.visualstudio.com/)
-#### - [Community server de MongoDB](https://www.mongodb.com/try/download/community) 
+# Instalaciones obligatorias
+Como respaldo comparto esta carpeta de google drive con imagenes y comentarios en las mismas imagenes de como fui instalando cada programa requerido en una maquina virtual con windows 11 desde 0.
 
-Instalar community server como servicio y mongodb compass (que aparece como opción en la misma ventana de instalación del community server) para poder revisar facilmente la información almacenada en la base de datos.
+Tambien hay registro de la instalacion, configuracion y ejecucion de la parte web y la api.
+
+https://drive.google.com/drive/folders/1a0_NFVEGsPihNT9BanOKycUOB2mChhoD?usp=sharing
+
+## Instalar en el siguiente orden
+
+### Se puede hacer click en los nombres para ir a la pagina de descarga correspondiente.
+
+#### 1- [NodeJS](https://nodejs.org/en/)
+La version current: 21.3.0 al momento de hacer el readme.
+
+Una ves iniciado el instalador hacer click en siguiente hasta llegar a una ventana en la que aparece una opcion en donde se pide instalar chocolatey, y seleccionarla:
+
+https://drive.google.com/file/d/1j3g-FQwF8ihNeiDYo0YeBOPsddGpEX6t/view
+
+Seguir haciendo click a siguiente hasta que se abra una consola en la que se pide un par de veces presionar cualquier tecla, hasta que pida permiso para abrir un powershell y continuar con la instalacion:
+
+https://drive.google.com/file/d/17JtyI-UoSyjMuqzZfCpXxge_6uFJiqdt/view
+https://drive.google.com/file/d/1vq0IYomako_GneL4AX-PchvoYsMhNDW-/view
+
+Desde aqui esperar a que termine la instalacion
+
+#### 2- [VS Code](https://code.visualstudio.com/)
+En la ventana de instalacion, al llegar a Select additional tasks dejar lo que viene predeterminado:
+
+https://drive.google.com/file/d/1siDOTktethEyZA3jQ1gIDbRW5hE_-Tx2/view
+
+
+#### 3- [Git](https://git-scm.com/download/win)
+En la ventana de instalacion, al llegar a Choosing the default editor used by git, seleccionar use visual studio code as git's default editor:
+
+https://drive.google.com/file/d/1O-iFW7-k26FTH7w2R8ftYNXtbAKUYx7F/view
+
+Luego el resto de pasos es simplemente dejar todas las configuraciones predeterminadas haciendo click en next hasta terminar la instalacion.
+
+https://drive.google.com/drive/folders/1yx8ojlO5nGDMXOXNYozKmt-9fvXD4DbB?usp=drive_link
+
+#### 4- [Community server de MongoDB](https://www.mongodb.com/try/download/community) 
+
+Al ingresar al la pagina de descarga, hacer click en el boton verde que dice "Select package" el cual lleva la vista a una seccion en donde se ve la plataforma, la version y el paquete el cual debe estar en formato msi, luego hacer click en download.
+
+En la ventana de instalacion al llegar a "Select Setup Type", elegir el que dice "Complete", luego en la ventana que dice "Service Configuration", si no estan seleccionadas(deberian por default) seleccionar "Install MongoD as a Service" y "Run service as Network Service user".
+Finalmente verificar que este seleccionada la opcion para instalar mongodb compass y continuar hasta finalizar la instalacion.
+
+https://drive.google.com/drive/folders/1qHu2zq4yfUXEBJjL19n33GR-YM3sHFSq?usp=drive_link
 
 ---
 
-### Una vez clonado el proyecto:
+## Luego de instalar los programas requeridos, clonar el proyecto y seguir los siguientes pasos
+
+Aqui se encuentra el paso a paso en imagenes:
+
+https://drive.google.com/drive/folders/1kxO4S7jG4e2EXIdyVwGKw7Vub48f04zO?usp=drive_link
+
+
+## Para el frontend
+
+Abrir una nueva consola y en la raíz ingresar a la carpeta web con el comando:
+```bash
+ cd web
+```
+
+#### Instalar las dependencias:
+```bash
+ npm install 
+```
+
+#### Para iniciar el servidor:
+
+```bash
+ npm run dev
+```
+Para verificar su funcionamiento ingresar a: http://localhost:5173, en donde deberia verse inicialmente el login.
 
 ## Para la API
 
-Desde la raíz ingresar a la carpeta api con el comando:
+Abrir una nueva consola y desde la raíz ingresar a la carpeta api con el comando:
 ```bash
  cd api
 ```
@@ -31,17 +95,17 @@ Desde la raíz ingresar a la carpeta api con el comando:
 
 String de conexión a mongodb
 ```
-MONGO_URL = "mongodb://127.0.0.1:27017/Catedra2-IDWM";
+MONGO_URL = "mongodb://localhost:27017/Taller2-IDWM"
 ```
 
 Clave secreta usada al momento de generar y validar los jwt del administrador:
 
 por simplicidad se dejo como "secret key", pero deberia ser una cadena mas segura en un caso de uso real
 ```
-JWT_SECRET = "secret key";
+JWT_SECRET = "secret key"
 ```
 
-(Opcional) La api usa por defecto el puerto 3000, pero puede añadir la variable PORT con un puerto diferente si asi lo desea:
+(Opcional) La api usa por defecto el puerto 3000, pero si por algun motivo este ya esta en uso, puede añadir la variable PORT con un puerto diferente si asi lo desea (tener en cuenta que tambien debe cambiarse el puerto en la parte web a cada peticion que se haga con fetch):
 ```
 PORT = 4000
 ```
@@ -76,25 +140,6 @@ Para verificar su funcionamiento entrar a http://localhost:3000 o con el puerto 
 ```
 
 
-## Para el frontend
-
-Abrir una nueva consola y en la raíz e ingresar a la carpeta web con el comando:
-```bash
- cd web
-```
-
-#### Instalar las dependencias:
-```bash
- npm install 
-```
-
-#### Para iniciar el servidor:
-
-```bash
- npm run dev
-```
-Para verificar su funcionamiento ingresar a: http://localhost:5173
-
 
 ## POSTMAN
 
@@ -103,3 +148,4 @@ Para la ruta delete primero puede usar la ruta get users para obtener algun id, 
 Para la ruta de edición debe cambiar el rut o dni para poder editar.
 
 Para la creacion debe cambiar el rut y/o correo, ya que ambos son unicos
+
