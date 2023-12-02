@@ -52,6 +52,9 @@ Al ingresar al la pagina de descarga, hacer click en el boton verde que dice "Se
 En la ventana de instalacion al llegar a "Select Setup Type", elegir el que dice "Complete", luego en la ventana que dice "Service Configuration", si no estan seleccionadas(deberian por default) seleccionar "Install MongoD as a Service" y "Run service as Network Service user".
 Finalmente verificar que este seleccionada la opcion para instalar mongodb compass y continuar hasta finalizar la instalacion.
 
+Una vez finalizado se abre automaticamente mongodb Compass, y aparecera por default una ventana con la direccion "mongodb://localhost:27017" y un boton que dice "Connect", hacer click en el boton y esperar a que se conecte (puede que la primera vez tarde un poco o falle, por lo que se debe intentar hasta que conecte y se vean las bases de datos predeterminadas), luego cerrar la ventana o dejarala abierta para ver la informacion creada desde la app web(usuarios).
+Si esta usando mongodb compass, al ingesar datos desde la app web, debe refrescar la ventana de mongodb compass para ver los cambios. 
+
 https://drive.google.com/drive/folders/1qHu2zq4yfUXEBJjL19n33GR-YM3sHFSq?usp=drive_link
 
 ---
